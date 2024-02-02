@@ -17,6 +17,39 @@
   - `npm run test-calculator`
 */
 
-class Calculator {}
+class Calculator {
+  constructor(){
+    this.result=0;
+  }
+  add(n){
+    this.result+=n;
+  }
+  sub(n){
+    this.result-=n;
+  }
+  mult(n){
+    this.result*=n;
+  }
+  div(n){
+    this.result/=n;
+  }
+  clear(){
+    this.result=0;
+  }
+  getResult(){
+    console.log(this.result);
+  }
+}
+let cal=new Calculator();
+cal.add(10);
+cal.sub(30);
+cal.getResult();
+cal.div(2);
+cal.getResult();
+
+a={};
+a["prop1"]=10;
+console.log(a["prop1"]);
+console.log(a.prop1);
 
 module.exports = Calculator;
