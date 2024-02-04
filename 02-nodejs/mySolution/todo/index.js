@@ -52,6 +52,9 @@ app.delete("/todos/:id",(req,res)=>{
       res.status(200).json({ msg: "todo deleted" });
 })
 
+app.use((req,res,next)=>{
+    res.status(404).send();
+})
 app.listen(3001,()=>{
     console.log("server running at 3001");
 })
