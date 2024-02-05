@@ -30,7 +30,7 @@ app.post("/todos",(req,res)=>{
     const {title,desc}=req.body;
     todos.push({todoid,title,desc});
     todoid+=1;
-    res.json({msg:"todo created!!"});
+    res.json({msg:"todo created!!",todoCreated:{todoid,title,desc}});
 });
 
 app.put("/todos/:id",(req,res)=>{
