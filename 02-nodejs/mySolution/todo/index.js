@@ -1,8 +1,13 @@
 const express=require("express")
 const bodyParser=require("body-parser");
+const cors=require("cors");
 
 const app=express();
 app.use(bodyParser.json());
+
+//this cors middleware library allows any frontend to come to our backend, hence not good
+//production related apps but it does not restrict any frontend, good during learning phase
+app.use(cors());
 
 let todos=[];
 let todoid=1;
@@ -16,8 +21,9 @@ app.get("/todos/:id",(req,res)=>{
     });
     if(todo.length==0){
         res.status(404).json({msg:"todo not present"});
+    }else{
+        res.status(200).send(todo);
     }
-    res.status(200).send(todo);
 });
 
 app.post("/todos",(req,res)=>{
@@ -52,8 +58,14 @@ app.delete("/todos/:id",(req,res)=>{
       res.status(200).json({ msg: "todo deleted" });
 })
 
-app.use((req,res,next)=>{
-    res.status(404).send();
+// app.use((req,res,next)=>{
+//     res.status(404).send();
+// })
+
+//this is to remove the cors issue we are sending the frontend from the backend urls 
+//only, making feel the browser that frontend and backend is coiming from the same url
+app.get("/",(req,res)=>{
+    res.sendFile(__dirname+"/index.html");
 })
 app.listen(3001,()=>{
     console.log("server running at 3001");
