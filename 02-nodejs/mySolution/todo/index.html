@@ -6,8 +6,7 @@
     <title>Document</title>
 </head>
 <script>
-    function onPress(){
-        alert("todo added!!");
+    function getTodos(){
         fetch("http://localhost:3001/todos",{
             method:"GET"
         }).then((response)=>{
@@ -16,11 +15,24 @@
             })
         })
     }
+    getTodos();
+    function sendTodos(){
+        fetch("http://localhost:3001/todos",{
+            method:"POST",
+            body:JSON.stringify({
+                title:"Laern 100xDev",
+                desc:"For 5 hours"
+            }),headers:{
+                "Content-Type":"application/json"
+            }
+        })
+    }
 </script>
 <body>
     <h1>Todo Application</h1>
     <input type="text" placeholder="title"/>
     <inpUT type="text" placeholder="description"/>
-    <button onclick="onPress()">Send todo</button>
+    <button onclick="getTodos()">Get todo</button>
+    <button onclick="sendTodos()">Send todo</button>
 </body>
 </html>
