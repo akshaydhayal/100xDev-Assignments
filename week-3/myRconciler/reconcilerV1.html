@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="mainArea">Main area</div>
+</body>
+
+<script>
+    // function createDOM(todo){
+    //     console.log(todo);   
+    // for(let i=0; i<todo.length; i++){
+    //     const parent=document.getElementById("mainArea");
+    //     parent.innerHTML="";
+    //     const child=document.createElement("div");
+    //     const gchild1=document.createElement("span");
+    //     gchild1.innerHTML=todo[i].title;
+    //     const gchild2=document.createElement("span");
+    //     gchild2.innerHTML=todo[i].desc;
+    //     const gchild3=document.createElement("button");
+    //     gchild3.innerHTML="Delete";
+    //     child.appendChild(gchild1)
+    //     child.appendChild(gchild2)
+    //     child.appendChild(gchild3)
+    //     parent.appendChild(child);
+    // }
+    // }
+    
+    window.setInterval(()=>{
+        let todo=[];
+        for(let i=0; i<Math.floor(Math.random()*50); i++){
+            todo.push({
+                id:i,title:"Do Web dev",desc:"For 5 hours"
+            })
+        };
+        
+        createDOM(todo)
+    },2000);
+    
+    function createDOM(todo){
+        console.log(todo);   
+        const parent=document.getElementById("mainArea");
+        parent.innerHTML="";
+        for(let i=0; i<todo.length; i++){
+            const child=document.createElement("div");
+            const gchild1=document.createElement("span");
+            gchild1.innerHTML=todo[i].title;
+            const gchild2=document.createElement("span");
+            gchild2.innerHTML=todo[i].desc;
+            const gchild3=document.createElement("button");
+            gchild3.innerHTML="Delete";
+            child.appendChild(gchild1)
+            child.appendChild(gchild2)
+            child.appendChild(gchild3)
+            parent.appendChild(child);
+    }
+    }
+
+</script>
+</html>

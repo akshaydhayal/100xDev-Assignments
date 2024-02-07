@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="mainArea">
+        <!-- <div id="0">h</div> -->
+    </div>
+</body>
+<script>
+    function createDOM(todos){
+        const parent=document.getElementById("mainArea");
+        const currentChildren=Array.from(parent.children);
+        console.log(currentChildren);
+
+        // parent.innerHTML="";
+        added=0,removed=0,updated=0;
+        // console.log(currentChildren[0].getAttribute("id")==0);
+        for(let i=0; i<todos.length; i++){
+            const todoExists=currentChildren.find((c)=>{
+                if(c!=undefined){
+                    return c.getAttribute("id")==todos[i].id;
+                }
+            });
+            console.log("i : "+i+"exists : "+todoExists);
+            if(todoExists){
+                updated+=1;
+            }else{
+                added+=1;
+                const child=document.createElement("div");
+                child.setAttribute("id",todos[i].id);
+                const gchild1=document.createElement("span");
+                gchild1.innerHTML=todos[i].title;
+                const gchild2=document.createElement("span");
+                gchild2.innerHTML=todos[i].desc;
+                const gchild3=document.createElement("button");
+                gchild3.innerHTML="Delete";
+    
+                child.appendChild(gchild1);
+                child.appendChild(gchild2);
+                child.appendChild(gchild3);
+                parent.appendChild(child);
+            }
+
+            
+        }
+        currentChildren.forEach((c)=>{
+            const childExists=todos.find((t)=>{
+                return t.id==c.getAttribute("id");
+            });
+            if(!childExists){
+                removed+=1;
+                parent.removeChild(c);
+            }
+        })
+        console.log("added: "+added+"  updated : "+updated+" removed : "+removed);
+    }
+
+    window.setInterval(()=>{
+        const todos=[];
+        for(let i=0; i<Math.floor(Math.random()*20); i++){
+            todos.push({
+                id:i, title:"100xDev Assignment",desc:"for 5 hours"
+            });
+        };
+        createDOM(todos);
+    },10000);
+
+</script>
+</html>
