@@ -1,9 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const jwt=require("jsonwebtoken");
+const cors=require("cors");
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 
 let USERS = [];
 let ADMIN = [];
@@ -13,6 +15,7 @@ const adminAuth = (req, res, next) => {
   // const token=generateJwt(req.body.username);
   const username=jwt.verify(req.headers.token,adminSecret);
   if (username) {
+    req.username=username;
     next();
   } else {
     res.status(404).json({ msg: "Admin Auth failed!!" });
@@ -39,7 +42,7 @@ app.post("/admin/signup", (req, res) => {
 });
 
 app.post("/admin/login", (req, res) => {
-  const {username,password}=req.headers;
+  const {username,password}=req.body;
   const adminExists=ADMIN.find((a)=>{
     return a.username==username && a.password==password
   });
@@ -49,6 +52,10 @@ app.post("/admin/login", (req, res) => {
   }else{
     res.status(403).json({msg:"admin does not exist, login failed!!"});
   }
+});
+
+app.get("/admin/me",adminAuth,(req,res)=>{
+  res.status(201).json({"username":req.username});
 });
 
 let courseId = 1;
