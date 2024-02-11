@@ -67,7 +67,7 @@ app.post("/admin/courses", adminAuth, (req, res) => {
 
 app.put("/admin/courses/:courseid", adminAuth, (req, res) => {
   const id = req.params.courseid;
-  const { title, description, price, published } = req.body;
+  const { title, description, price,imageLink, published } = req.body;
   let flag = false;
   COURSE.forEach((c) => {
     if (c.courseId == id) {
@@ -75,6 +75,7 @@ app.put("/admin/courses/:courseid", adminAuth, (req, res) => {
       c.title = title;
       c.description = description;
       c.price = price;
+      c.imageLink = imageLink;
       c.published = published;
     }
   });
